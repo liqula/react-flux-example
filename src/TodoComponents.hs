@@ -10,15 +10,28 @@ import React.Flux
 import Data.JSString (JSString)
 import qualified Data.Text as T
 
+import TodoStore (TodoAction(..))
+import TodoDispatcher (dispatchTodo)
+
 -- | The properties for the text input component.  Note how we can pass anything, including
 -- functions, as the properties; the only requirement is an instance of Typeable.
 data TextInputArgs = TextInputArgs {
       tiaId :: Maybe JSString
     , tiaClass :: JSString
     , tiaPlaceholder :: JSString
-    , tiaOnSave :: T.Text -> [SomeStoreAction]
+    , tiaSaveAction :: SaveAction
     , tiaValue :: Maybe T.Text
-} deriving (Typeable)
+} deriving (Eq, Typeable)
+
+data SaveAction
+    = SACreate | SAUpdate Int
+  deriving (Eq, Typeable)
+
+tiaOnSave :: TextInputArgs -> T.Text -> [SomeStoreAction]
+tiaOnSave ta txt = dispatchTodo . f $ tiaSaveAction ta
+  where
+    f SACreate = TodoCreate txt
+    f (SAUpdate i) = UpdateText i txt
 
 -- | The text input stateful view.  The state is the text that has been typed into the textbox
 -- but not yet saved.  The save is triggered either on enter or blur, which resets the state/content

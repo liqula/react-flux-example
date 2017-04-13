@@ -28,7 +28,7 @@ todoHeader = mkView "header" $
           { tiaId = Just "new-todo"
           , tiaClass = "new-todo"
           , tiaPlaceholder = "What needs to be done?"
-          , tiaOnSave = dispatchTodo . TodoCreate
+          , tiaSaveAction = SACreate
           , tiaValue = Nothing
           }
 
@@ -73,7 +73,7 @@ todoItem = mkView "todo item" $ \todoIdx todo ->
                 { tiaId = Nothing
                 , tiaClass = "edit"
                 , tiaPlaceholder = ""
-                , tiaOnSave = dispatchTodo . UpdateText todoIdx
+                , tiaSaveAction = SAUpdate todoIdx
                 , tiaValue = Just $ todoText todo
                 }
 
