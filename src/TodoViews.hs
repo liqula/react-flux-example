@@ -52,7 +52,7 @@ mainSection_ st = section_ ["id" $= "main"] $ do
 -- section of the React.Flux documentation.
 todoItem :: View '[Int, Todo]
 todoItem = mkView "todo item" $ \todoIdx todo ->
-    li_ [ classNames [("completed", todoComplete todo), ("editing", todoIsEditing todo)]
+    li_ [ classNamesLast [("completed", todoComplete todo), ("editing", todoIsEditing todo)]
         , "key" @= todoIdx
         ] $ do
 
