@@ -23,6 +23,8 @@ data TextInputArgs = TextInputArgs {
     , tiaValue :: Maybe T.Text
 } deriving (Eq, Typeable)
 
+instance UnoverlapAllEq TextInputArgs
+
 data SaveAction
     = SACreate | SAUpdate Int
   deriving (Eq, Typeable)
