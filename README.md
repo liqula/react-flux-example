@@ -1,3 +1,6 @@
+
+# DEPRECATED BY https://github.com/liqula/react-hs
+
 This directory contains three example applications.
 
 # Todo Example
